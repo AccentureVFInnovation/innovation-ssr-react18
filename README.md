@@ -1,3 +1,7 @@
+# SSR in React 18 (Dynamic data fetching)
+
+THis application is developed using React18 feature (renderToPipebleStream - to attain SSR feature).
+
 # Required Tools:
 
 1. Any prefered IDE , nodejs installed, Chrome browser
@@ -10,10 +14,6 @@
 # Objective
 
 Performance optimisation with 0 loading time and SEO Optimized - Certain part of the page's load time can be increased using React18's new feature(renderToPipebleStream). At initial load users instead of seeing blank page they can see the actual layout with pre-fetched contents.
-
-# SSR in React 18
-
-THis application is developed using React18 feature (renderToPipebleStream - to attain SSR feature).
 
 # How to setup and Run the Project
 
