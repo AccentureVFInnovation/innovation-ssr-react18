@@ -2,7 +2,7 @@
 
 # SSR in React 18 (Dynamic data fetching)
 
-THis application is developed using React18 feature (renderToPipebleStream - to attain SSR feature).
+This application is developed using React18 feature (renderToPipebleStream - to attain SSR feature).
 
 # Required Tools:
 
