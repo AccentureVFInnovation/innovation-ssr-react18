@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Required Tools:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Any prefered IDE , nodejs installed, Chrome browser
 
-## Available Scripts
+# Some other tools I used
 
-In the project directory, you can run:
+1. Express : (Implemented Routings)
+2. Nodejs : (Read/Write file using FileSystem, Streams)
 
-### `npm start`
+# Objective
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Performance optimisation with 0 loading time and SEO Optimized - Certain part of the page's load time can be increased using React18's new feature(renderToPipebleStream). At initial load users instead of seeing blank page they can see the actual layout with pre-fetched contents.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# SSR in React 18
 
-### `npm test`
+THis application is developed using React18 feature (renderToPipebleStream - to attain SSR feature).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# How to setup and Run the Project
 
-### `npm run build`
+To obtain SSR, we need to create react script to build client side scripts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- npm run build
+- npm run ssr
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# NOTE (Routing path) :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I have provided 2 routes (/test , /apicall) please use the path
 
-### `npm run eject`
+1. /test - It has a simple json file.
+2. /apicall - This makes 2 api call on server and pass those data to client side.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Any Blocker/Got Stuck?, Remember this points to check
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Hydration issue - Remember, our SSR(build/index.html) and CSR(public/index.html) file should match with same data, if not we will get app crash.
+2. Don't use renderToString(it does not support streaming, lazy loading). It comes with less supported use only.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Reference
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+SSR DOCS :
 
-## Learn More
+1. Understanding React 18 Architecture :
+   https://blog.saeloun.com/2022/01/20/new-suspense-ssr-architecture-in-react-18
+   https://github.com/reactwg/react-18/discussions/37
+   https://blog.saeloun.com/2021/12/16/hydration
+   https://reactjs.org/docs/react-dom-server.html#rendertopipeablestream
+2. CSR vs SSR :
+   https://ts.accenture.com/:w:/s/InnovationTeam187/EdnNHs7ji_FAvzL1JxYSIg4BAqEaEMI3dq8XW0-LcSh1LQ?e=zwbTQA
+3. Upgrading R18 on server :
+   https://github.com/reactwg/react-18/discussions/22
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+SSR VIDEO :
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Streaming Server Rendering with Suspense : https://www.youtube.com/watch?v=pj5N-Khihgc
+2. React 18 Features : https://www.youtube.com/watch?v=Z-NCLePa2x8&t=1s
 
-### Code Splitting
+OTHER REFERENCE
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Suspense (for data fetching - EXPERIMENTAL) :
+   https://dev.to/darkmavis1980/a-practical-example-of-suspense-in-react-18-3lln

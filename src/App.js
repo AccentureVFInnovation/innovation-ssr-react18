@@ -8,11 +8,10 @@ import "./App.css";
 import ColorDetail from "./components/ColorDetail";
 import MainContent from "./components/MainContent";
 import NavBar from "./components/NavBar";
-// import DelayedComponent from "./components/DelayedComponent";
 const UserListFetch = lazy(() => import("./components/UserListFetch"));
 //delayed function - to show everything is independently loading
 const DelayedComponent = lazy(async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return await import("./components/DelayedComponent");
 });
 const UserListSSR = lazy(() => import("./components/UserListSSR.js"));
@@ -32,10 +31,10 @@ const UserListSSR = lazy(() => import("./components/UserListSSR.js"));
 
 //app
 export default function App(props) {
-  const { name, fetchedData, colorData } = props;
+  const { fetchedData, colorData } = props;
   return (
     <div className="App">
-      <NavBar name={name} />
+      <NavBar />
 
       <div className="app-mid-container">
         <Suspense fallback={<h3 style={{ color: "red" }}>Loading.....</h3>}>

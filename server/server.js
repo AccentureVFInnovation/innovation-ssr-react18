@@ -6,11 +6,11 @@ import fs from "fs";
 import path from "path";
 
 //this module is required to use fetch - (3rd party module)
-//import fetch from "node-fetch-npm";
+import fetch from "node-fetch-npm";
 
 //to render react from our server side we need rct, rctDServer, app.js
 import React from "react";
-import { renderToPipeableStream } from "react-dom/server"; // alpha stage, has some bugs
+import { renderToPipeableStream } from "react-dom/server"; // alpha stage
 import App from "../src/App";
 
 //port - .env is not created for now
@@ -24,52 +24,65 @@ app.get("/test", (req, res) => {
 });
 
 // 2 route - use async await to display the data, if not the content will not be there, it will load in advance
-app.get("/one", async (req, res, next) => {
+app.get("/apicall", async (req, res, next) => {
   // //fetch color
-  // let colorData = [];
-  // await fetch("https://random-data-api.com/api/color/random_color", {
-  //   method: "GET",
-  //   headers: { "Content-Type": "application/json" },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     colorData = data;
-  //   });
+  let clrAsString;
+  let colorData = [];
+  await fetch("https://random-data-api.com/api/color/random_color", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      colorData = data;
+      clrAsString = data;
+    });
 
-  // //fetch userData
-  // let fetchedData = [];
-  // await fetch("https://jsonplaceholder.typicode.com/users", {
-  //   method: "GET",
-  //   headers: { "Content-Type": "application/json" },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     fetchedData = data;
-  //   });
-
-  //readFile
+  //fetch userData
+  let apiAsString;
+  let fetchedData = [];
+  await fetch("https://reqres.in/api/users?page=2", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((item) => {
+      fetchedData = item.data;
+      apiAsString = item.data;
+    });
 
   //reading our build index.html file
   fs.readFile(path.resolve("./build/index.html"), "utf-8", (error, data) => {
     //reading our build index.html file, here we get our data incase err, we handle it separately
     //split and injecting the data
     const html = data.toString();
-    const splitTexts = [`<div id="root">`, `</div>`];
-    const [preHtml, postHtml] = html.split(splitTexts[0] + splitTexts[1]);
-    //console.log(preHtml);
-    //console.log(postHtml);
+    let splitTexts = [`<div id="root">`, `</div>`];
+    let [preHtml, postHtml] = html.split(splitTexts[0] + splitTexts[1]);
 
     let didError = false;
     const stream = renderToPipeableStream(
-      <App name="SSR 18" />,
-      // <App name="Test18" fetchedData={fetchedData} colorData={colorData} />,
+      <App fetchedData={fetchedData} colorData={colorData} />,
       {
         // It runs when the content is ready
         onShellReady() {
           // If something errored before we started streaming, we set the error code appropriately.
+          function addData(data) {
+            let splitData = data.split(""); //<div id="root" >
+            //below we are passing fetched datas and adding it as attributes to <div id="root" ...>
+            splitData.splice(
+              14,
+              0,
+              ` fetchedData=${JSON.stringify(
+                apiAsString
+              )} colorData=${JSON.stringify(clrAsString)}`
+            );
+            let modifiedAttr = splitData.join("");
+            return modifiedAttr;
+          }
+
           res.statusCode = didError ? 500 : 200;
           res.setHeader("Content-Type", "text/html; charset=utf-8");
-          res.write(`${preHtml}${splitTexts[0]}`).toString();
+          res.write(`${preHtml} ${addData(splitTexts[0])}`).toString();
           stream.pipe(res);
         },
 

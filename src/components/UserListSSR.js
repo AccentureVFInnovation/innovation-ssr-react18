@@ -9,7 +9,9 @@ function UserListSSR({ fetchedData }) {
       <h2>UserListSSR - Posts</h2>
       <ul>
         {fetchedData?.map((item) => (
-          <li key={item.id}>{item.username}</li>
+          <li key={item.id}>
+            {item.first_name} {item.last_name}
+          </li>
         ))}
       </ul>
       <h2>

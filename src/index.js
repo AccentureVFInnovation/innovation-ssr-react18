@@ -3,15 +3,19 @@ import { hydrateRoot } from "react-dom/client";
 import "./index.css";
 //app
 import App from "./App";
-
 //container
 const container = document.getElementById("root");
-
+//stringified attribute
+let userData = container.getAttribute("fetchedData");
+let colorData = container.getAttribute("colorData");
 //hydrateRoot - To obtain SSR, for selective hydration
 hydrateRoot(
   container,
   <React.StrictMode>
-    <App name="SSR 18" />
+    <App
+      fetchedData={JSON.parse(`${userData}`)}
+      colorData={JSON.parse(`${colorData}`)}
+    />
   </React.StrictMode>
 );
 

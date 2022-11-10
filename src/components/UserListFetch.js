@@ -15,7 +15,7 @@ let UserListFetch = ({ fetchedData }) => {
       <ul>
         {list?.map((item) => (
           <li key={item.id}>
-            <p>{item.username}</p>
+            <p>{item.email}</p>
             <button type="button" onClick={() => handleDelete(item.id)}>
               delete
             </button>
