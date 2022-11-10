@@ -1,3 +1,5 @@
+<img width="1469" alt="CSR and SSR" src="https://user-images.githubusercontent.com/114176203/201006910-fa3b2112-3fd5-48aa-aeb1-01b4be213d0d.png">
+
 # SSR in React 18 (Dynamic data fetching)
 
 THis application is developed using React18 feature (renderToPipebleStream - to attain SSR feature).
